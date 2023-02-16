@@ -53,7 +53,7 @@ pipeline{
                 }
             }
         }
-        stage('Static code analysis'){
+        stage('SAST'){
             
             steps{
                 
