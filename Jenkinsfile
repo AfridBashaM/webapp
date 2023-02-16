@@ -14,6 +14,15 @@ pipeline{
                 }
             }
         }
+        
+        stage('SCA'){
+        
+            steps{
+                dependencyCheck additionalArguments: '', odcInstallation: 'owasp dependency'
+            }
+            
+        }
+        
         stage('UNIT testing'){
             
             steps{
@@ -54,19 +63,11 @@ pipeline{
                         
                         sh 'mvn clean package sonar:sonar'
                     }
-                   }
+                 }
                     
-                }
-            }
-            stage('Deploy to tomcat'){
-                
-                steps{
-                    
-                    sshagent(['tomcat']) {
-                        sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@52.66.142.113:/prod/apache-tomcat-9.0.71/webapps/webapp.war'
-                    }
-                }
-            }
-        }
+             }
+         }
+            
+    }
         
 }
