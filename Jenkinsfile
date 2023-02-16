@@ -4,14 +4,7 @@ pipeline{
     
     stages {
         
-        stage ('Check-Git-Secreats') {
-            steps {
-                sshagent(['ZAP-SSH']) {
-                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.234.34.104 "docker run gesellix/trufflehog --json https://github.com/AfridBashaM/webapp.git > trufflehog"'
-                    
-                }
-            }
-        }
+        
         stage('Git Checkout'){
             
             steps{
@@ -19,6 +12,15 @@ pipeline{
                 script{
                     
                     git branch: 'master', url: 'https://github.com/AfridBashaM/webapp.git'
+                }
+            }
+        }
+        
+        stage ('Check-Git-Secreats') {
+            steps {
+                sshagent(['ZAP-SSH']) {
+                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.234.34.104 "docker run gesellix/trufflehog --json https://github.com/AfridBashaM/webapp.git > trufflehog"'
+                    
                 }
             }
         }
