@@ -8,7 +8,7 @@ pipeline{
             steps {
                 sshagent(['ZAP-SSH']) {
                     sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.234.34.104 "docker run gesellix/trufflehog --json https://github.com/AfridBashaM/webapp.git > trufflehog"'
-                    sh 'cat trufflehog'
+                    
                 }
             }
         }
