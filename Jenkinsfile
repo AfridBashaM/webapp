@@ -80,9 +80,7 @@ pipeline{
          stage('Deploy to tomcat'){
                 
             steps{
-                sshagent(['tomcat']) {
-                    sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@52.66.142.113:/prod/apache-tomcat-9.0.71/webapps/webapp.war'
-                }
+                deploy adapters: [tomcat9(credentialsId: '1223df4e-4823-4a39-ad2e-36f53efa10ac', path: '', url: 'http://52.66.142.113:8080/')], contextPath: null, war: '**/*.war'
              }
          }
         stage ('DAST') {
